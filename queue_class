@@ -1,0 +1,87 @@
+#include<iostream>
+using namespace std;
+class Node{
+	public:
+		int data;
+		Node* next;
+		
+		Node(){
+			this -> data = data;
+			next = NULL;
+		}
+};
+class Queue{
+private:
+	Node *front = NULL;
+	Node *rear = NULL;
+	Node *temp = NULL ;
+public:
+	void enqueue();
+	void dequeue();
+	void display();
+};
+
+void Queue::enqueue()
+{
+	for(int i = 1;i <= 30; i++)
+	{
+		if(rear == NULL)//empty queue
+		{
+			rear = new Node;
+			rear->data= i;
+			rear->next = NULL;
+			front = rear; // first node for the queue
+		}
+		else//not empty queue
+		{
+			temp = new Node;//temporary pointer
+			temp->data = i;
+			rear->next = temp;//The back of the queue add the element
+			temp->next = NULL;
+			rear = temp;
+		}
+	}
+}
+void Queue::dequeue()
+{
+	temp = front;
+	if(front == NULL)//empty queue
+	{
+		cout<<"There's nothing in the queue"<<endl;
+		
+	}
+	else{
+		if(temp->next != NULL){
+			temp = temp->next;
+			cout<<"Element deleted from queue is: "<<front->data<<"\n\n";
+			delete front;//deleting from front since FIFO
+			front = temp;
+		}
+	}
+}
+void Queue::display()
+{
+	temp = front;//to be able to traverse through the queue
+	
+	if((front == NULL) && (rear == NULL))
+	{
+		cout<<"The queue is empty!!"<<endl;
+	}
+	cout<<"Below are elements in the queue."<<endl;
+	while(temp != NULL)
+	{
+		cout<<temp->data<<" ";
+		temp = temp->next;
+	}
+	cout<<endl;
+}
+int main()
+{
+	Queue q1;
+	
+	q1.enqueue();
+	q1.display();
+	q1.dequeue();
+	cout<<"After deletion in the Queue"<<endl;
+	q1.display();
+}
